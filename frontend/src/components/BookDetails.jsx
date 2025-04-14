@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 const BookDetails = ({ user }) => {
   const { id } = useParams();
@@ -11,9 +12,7 @@ const BookDetails = ({ user }) => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/api/books/${id}`
-        );
+        const response = await axios.get(`${BASE_URL}/api/books/${id}`);
         setBook(response.data);
       } catch (error) {
         console.error("Error fetching book:", error);
@@ -147,9 +146,7 @@ const BookDetails = ({ user }) => {
                   <button
                     onClick={async () => {
                       try {
-                        await axios.delete(
-                          `http://localhost:3001/api/books/${book.id}`
-                        );
+                        await axios.delete(`${BASE_URL}/api/books/${book.id}`);
                         navigate("/");
                       } catch (error) {
                         console.error("Failed to delete book:", error);
@@ -163,7 +160,7 @@ const BookDetails = ({ user }) => {
                     onClick={async () => {
                       try {
                         await axios.put(
-                          `http://localhost:3001/api/books/${book.id}/status`,
+                          `${BASE_URL}/api/books/${book.id}/status`,
                           {
                             status:
                               book.status === "available"

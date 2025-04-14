@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BookOpenIcon, UserIcon } from "@heroicons/react/24/outline";
+import { BASE_URL } from "../config";
 
 function Dashboard({ user }) {
   const [userBooks, setUserBooks] = useState([]);
@@ -14,7 +15,7 @@ function Dashboard({ user }) {
 
   const fetchUserBooks = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/books");
+      const response = await axios.get(`${BASE_URL}/api/books`);
       const books = response.data.filter((book) => book.ownerId === user.id);
       setUserBooks(books);
     } catch (error) {
@@ -24,7 +25,7 @@ function Dashboard({ user }) {
 
   const handleDeleteBook = async (bookId) => {
     try {
-      await axios.delete(`http://localhost:3001/api/books/${bookId}`);
+      await axios.delete(`${BASE_URL}/api/books/${bookId}`);
       fetchUserBooks();
     } catch (error) {
       console.error("Error deleting book:", error);

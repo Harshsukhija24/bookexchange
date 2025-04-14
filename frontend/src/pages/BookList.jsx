@@ -4,6 +4,7 @@ import axios from "axios";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import BookCard from "../components/BookCard";
 import SearchBar from "../components/SearchBar";
+import { BASE_URL } from "../config";
 
 function BookList({ user }) {
   const [allBooks, setAllBooks] = useState([]); // Store all books
@@ -15,7 +16,7 @@ function BookList({ user }) {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/books");
+        const response = await axios.get(`${BASE_URL}/api/books`);
         setAllBooks(response.data); // Save all books
         setBooks(response.data); // Initially display all books
       } catch (error) {

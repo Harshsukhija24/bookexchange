@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 function Register({ onRegister }) {
   const [formData, setFormData] = useState({
@@ -41,10 +42,7 @@ function Register({ onRegister }) {
         throw new Error("Password must be at least 6 characters long");
       }
 
-      const response = await axios.post(
-        "http://localhost:3001/api/register",
-        formData
-      );
+      const response = await axios.post(`${BASE_URL}/api/register`, formData);
 
       onRegister(response.data);
       navigate("/");

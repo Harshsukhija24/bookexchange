@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 function AddBook({ user, onLogout }) {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ function AddBook({ user, onLogout }) {
         throw new Error("Please enter a valid publication year");
       }
 
-      const response = await axios.post("http://localhost:3001/api/books", {
+      const response = await axios.post(`${BASE_URL}/api/books`, {
         ...formData,
         ownerId: user.id,
         ownerName: user.name,
